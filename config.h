@@ -19,7 +19,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "Vid" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -94,6 +94,16 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	TAGKEYS(                        XK_0,                      9)
+	TAGKEYS(                        XK_F1,                     10)
+	TAGKEYS(                        XK_F2,                     11)
+	TAGKEYS(                        XK_F3,                     12)
+	TAGKEYS(                        XK_F4,                     13)
+	TAGKEYS(                        XK_F9,                     14)
+	TAGKEYS(                        XK_F10,                    15)
+	TAGKEYS(                        XK_F11,                    16)
+	TAGKEYS(                        XK_F12,                    17)
+	TAGKEYS(                        XK_v,                      18)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
