@@ -59,28 +59,58 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *nnncmd[]  = { "st", "-c", "nnn", "-t", "nnn", "-e", "nnn" };
+static const char *lockcmd[]  = { "lock", NULL };
+static const char *htopcmd[]  = { "st", "-c", "htop", "-t", "htop", "-e", "htop" };
+static const char *pulsecmd[]  = { "st", "-c", "pulsemixer", "-t", "pulsemixer", "-e", "pulsemixer" };
+static const char *mailcmd[]  = { "st", "-c", "mail", "-t", "mail", "-e", "neomutt" };
+static const char *newsboatcmd[]  = { "st", "-c", "newsboat", "-t", "newsboat", "-e", "newsboat" };
+static const char *powercmd[]  = { "scratchpad", "-c", "powermenu", "-t", "power", "-e", "powermenu" };
+static const char *homecmd[]  = { "scratchpad", "-c", "home", "-t", "home", "-e", "home" };
+static const char *passcmd[]  = { "scratchpad", "-c", "passmenu", "-t", "pass", "-e", "pass menu" };
+static const char *srcmd[]  = { "scratchpad", "-c", "srmenu", "-t", "search", "-e", "srmenu" };
+static const char *appcmd[]  = { "scratchpad", "-c", "appmenu", "-t", "apps", "-e", "appmenu" };
+static const char *clipcmd[]  = { "scratchpad", "-c", "clipmenu", "-t", "clip", "-e", "fclip" };
+static const char *calccmd[]  = { "scratchpad", "-c", "calc", "-t", "calc", "-e", "qalc" };
+static const char *webcmd[]  = { "www", NULL };
+static const char *chromecmd[]  = { "chromium", NULL };
+static const char *torcmd[]  = { "torbrowser-launcher", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ ControlMask|Mod1Mask,         XK_Delete, spawn,          {.v = powercmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = nnncmd } },
+	{ MODKEY,                       XK_a,      spawn,          {.v = homecmd } },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = appcmd } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = clipcmd } },
+	{ MODKEY|ShiftMask,             XK_c,      spawn,          {.v = calccmd } },
+	{ MODKEY,                       XK_x,      spawn,          {.v = lockcmd } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = webcmd } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = pulsecmd } },
+	{ MODKEY,                       XK_m,      spawn,          {.v = mailcmd } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = newsboatcmd } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = srcmd } },
+	{ MODKEY,                       XK_t,      spawn,          {.v = htopcmd } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = passcmd } },
+	{ MODKEY|ShiftMask,             XK_t,      togglebar,      {0} },
+	{ MODKEY,                       XK_Left,   focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_Right,  focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_q,      killclient,     {0} },
+	{ MODKEY,                       XK_Delete, killclient,     {0} },
+	{ MODKEY,                       XK_numbersign,  setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_apostrophe,  setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	/* { MODKEY,                       XK_0,      view,           {.ui = ~0 } }, */
+	/* { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } }, */
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
