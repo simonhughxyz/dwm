@@ -2172,8 +2172,11 @@ updatewmhints(Client *c)
 void
 view(const Arg *arg)
 {
-	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
+	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags]){
+        /* return to last tag if ui is selected tag */
+        view(&((Arg) { .ui = 0 }));
 		return;
+    }
 	selmon->seltags ^= 1; /* toggle sel tagset */
 	if (arg->ui & TAGMASK)
 		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
