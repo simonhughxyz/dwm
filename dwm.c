@@ -213,8 +213,6 @@ static void sigchld(int unused);
 static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
-static void tagtonext(const Arg *arg);
-static void tagtoprev(const Arg *arg);
 static void tile(Monitor *);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
@@ -1738,36 +1736,6 @@ tagmon(const Arg *arg)
 	if (!selmon->sel || !mons->next)
 		return;
 	sendmon(selmon->sel, dirtomon(arg->i));
-}
-
-void
-tagtonext(const Arg *arg)
-{
-	unsigned int tmp;
-
-	if (selmon->sel == NULL)
-		return;
-
-	if ((tmp = nexttag()) == selmon->tagset[selmon->seltags])
-		return;
-
-	tag(&(const Arg){.ui = tmp });
-	view(&(const Arg){.ui = tmp });
-}
-
-void
-tagtoprev(const Arg *arg)
-{
-	unsigned int tmp;
-
-	if (selmon->sel == NULL)
-		return;
-
-	if ((tmp = prevtag()) == selmon->tagset[selmon->seltags])
-		return;
-
-	tag(&(const Arg){.ui = tmp });
-	view(&(const Arg){.ui = tmp });
 }
 
 void
