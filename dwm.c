@@ -185,9 +185,11 @@ static void monocle(Monitor *m);
 static void motionnotify(XEvent *e);
 static void movemouse(const Arg *arg);
 static unsigned int nexttag(void);
+static unsigned int nextvacanttag(void);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
 static unsigned int prevtag(void);
+static unsigned int prevvacanttag(void);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
@@ -233,7 +235,9 @@ static void updatewindowtype(Client *c);
 static void updatewmhints(Client *c);
 static void view(const Arg *arg);
 static void viewnext(const Arg *arg);
+static void viewvacantnext(const Arg *arg);
 static void viewprev(const Arg *arg);
+static void viewvacantprev(const Arg *arg);
 static Client *wintoclient(Window w);
 static Monitor *wintomon(Window w);
 static int xerror(Display *dpy, XErrorEvent *ee);
@@ -1222,6 +1226,13 @@ nexttag(void)
 	return seltag;
 }
 
+unsigned int
+nextvacanttag(void)
+{
+	unsigned int seltag = selmon->tagset[selmon->seltags];
+	return seltag == (1 << (LENGTH(tags) - 1)) ? 1 : seltag << 1;
+}
+
 Client *
 nexttiled(Client *c)
 {
@@ -1258,6 +1269,13 @@ prevtag(void)
 	} while (!(seltag & usedtags));
 
 	return seltag;
+}
+
+unsigned int
+prevvacanttag(void)
+{
+	unsigned int seltag = selmon->tagset[selmon->seltags];
+	return seltag == 1 ? (1 << (LENGTH(tags) - 1)) : seltag >> 1;
 }
 
 void
@@ -2135,9 +2153,21 @@ viewnext(const Arg *arg)
 }
 
 void
+viewvacantnext(const Arg *arg)
+{
+	view(&(const Arg){.ui = nextvacanttag()});
+}
+
+void
 viewprev(const Arg *arg)
 {
 	view(&(const Arg){.ui = prevtag()});
+}
+
+void
+viewvacantprev(const Arg *arg)
+{
+	view(&(const Arg){.ui = prevvacanttag()});
 }
 
 Client *
