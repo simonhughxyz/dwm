@@ -14,17 +14,14 @@ static const char *fonts[]          = { "monospace:size=12", "FontAwesome:size=1
 static const char dmenufont[]       = "monospace:size=12";
 static const char col_black[]       = "#000000";
 static const char col_white[]       = "#ffffff";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
+static const char col_gray[]        = "#eeeeee";
 static const char col_purple_light[]  = "#bb00ff";
 static const char col_purple_dark[]   = "#9000ff";
 static const char *colors[][3]      = {
 	/*               fg                 bg                  border   */
-	[SchemeNorm] = { col_purple_light,  col_black,          col_black },
-	[SchemeSel]  = { col_white,         col_purple_dark,    col_purple_dark  },
-	[SchemeTitle]  = { col_white,       col_black,          col_black  },
+	[SchemeNorm]   = { col_purple_light,  col_black,          col_black },
+	[SchemeSel]    = { col_white,         col_purple_dark,    col_purple_dark  },
+	[SchemeTitle]  = { col_gray,          col_black,          col_black  },
 };
 
 /* tagging */
@@ -80,7 +77,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_purple_dark, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray, "-nf", col_gray, "-sb", col_purple_dark, "-sf", col_gray, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *nnncmd[]  = { "st", "-c", "nnn", "-t", "nnn", "-e", "nnn" };
 static const char *lockcmd[]  = { "lock", NULL };
