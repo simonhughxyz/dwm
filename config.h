@@ -81,6 +81,19 @@ static const Layout layouts[] = {
 	{ MODKEY|SHIFT,            KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|CTRL|SHIFT,       KEY,      toggletag,      {.ui = 1 << TAG} },
 
+ /* Volume Controls */
+#define VOLCMD(arg) SHCMD("/bin/pulsemixer " arg "; pkill -RTMIN+10 dwmblocks")
+
+#define VOLADDKEY(KEY) \
+    { MODKEY,                  KEY,      spawn,          VOLCMD("--change-volume +5") }, \
+    { MODKEY|CTRL,             KEY,      spawn,          VOLCMD("--change-volume +1") }, \
+    { MODKEY|SHIFT,            KEY,      spawn,          VOLCMD("--change-volume +20") }, \
+
+#define VOLSUBKEY(KEY) \
+    { MODKEY,                  KEY,      spawn,          VOLCMD("--change-volume -5") }, \
+    { MODKEY|CTRL,             KEY,      spawn,          VOLCMD("--change-volume -1") }, \
+    { MODKEY|SHIFT,            KEY,      spawn,          VOLCMD("--change-volume -20") }, \
+
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray, "-nf", col_gray, "-sb", col_purple_dark, "-sf", col_gray, NULL };
@@ -104,6 +117,12 @@ static const char *torcmd[]  = { "torbrowser-launcher", NULL };
 
 static Key keys[] = {
 	/* modifier                key                  function        argument */
+
+    /* Volume Controls */
+    VOLADDKEY(                 XK_equal)
+    VOLSUBKEY(                 XK_minus)
+	{ MODKEY,                  XK_m,                spawn,          VOLCMD("--toggle-mute") },
+
 	{ MODKEY,                  XK_Return,           spawn,          {.v = termcmd } },
 	{ CTRL|ALT,                XK_Delete,           spawn,          {.v = powercmd } },
 	{ MODKEY|SHIFT,            XK_Return,           spawn,          {.v = nnncmd } },
