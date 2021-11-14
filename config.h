@@ -94,6 +94,20 @@ static const Layout layouts[] = {
     { MODKEY|CTRL,             KEY,      spawn,          VOLCMD("--change-volume -1") }, \
     { MODKEY|SHIFT,            KEY,      spawn,          VOLCMD("--change-volume -20") }, \
 
+/* Screen Brightness Controls */
+#define BRIGHTNESSCMD(arg) SHCMD("/bin/xbacklight " arg)
+#define BRIGHTNESSKEYS \
+    { MODKEY|ALT,              XK_1,     spawn,          BRIGHTNESSCMD("10") }, \
+    { MODKEY|ALT,              XK_2,     spawn,          BRIGHTNESSCMD("20") }, \
+    { MODKEY|ALT,              XK_3,     spawn,          BRIGHTNESSCMD("30") }, \
+    { MODKEY|ALT,              XK_4,     spawn,          BRIGHTNESSCMD("40") }, \
+    { MODKEY|ALT,              XK_5,     spawn,          BRIGHTNESSCMD("50") }, \
+    { MODKEY|ALT,              XK_6,     spawn,          BRIGHTNESSCMD("60") }, \
+    { MODKEY|ALT,              XK_7,     spawn,          BRIGHTNESSCMD("70") }, \
+    { MODKEY|ALT,              XK_8,     spawn,          BRIGHTNESSCMD("80") }, \
+    { MODKEY|ALT,              XK_9,     spawn,          BRIGHTNESSCMD("90") }, \
+    { MODKEY|ALT,              XK_0,     spawn,          BRIGHTNESSCMD("0") },
+
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray, "-nf", col_gray, "-sb", col_purple_dark, "-sf", col_gray, NULL };
@@ -122,6 +136,9 @@ static Key keys[] = {
     VOLADDKEY(                 XK_equal)
     VOLSUBKEY(                 XK_minus)
 	{ MODKEY,                  XK_m,                spawn,          VOLCMD("--toggle-mute") },
+
+    /* Screen Brightness Controls */
+    BRIGHTNESSKEYS
 
 	{ MODKEY,                  XK_Return,           spawn,          {.v = termcmd } },
 	{ CTRL|ALT,                XK_Delete,           spawn,          {.v = powercmd } },
