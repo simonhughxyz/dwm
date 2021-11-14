@@ -84,6 +84,13 @@ static const Layout layouts[] = {
 	{ MODKEY|SHIFT,            KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|CTRL|SHIFT,       KEY,      toggletag,      {.ui = 1 << TAG} },
 
+/* Toggle Keys */
+#define TOGGLEKEYUPDATE SHCMD("sleep 0.1; pkill -RTMIN+11 dwmblocks")
+#define TOGGLEKEYS \
+    { {0},                     XK_Caps_Lock,    spawn,        TOGGLEKEYUPDATE }, \
+    { {0},                     XK_Num_Lock,     spawn,        TOGGLEKEYUPDATE }, \
+    { {0},                     XK_Scroll_Lock,  spawn,        TOGGLEKEYUPDATE },
+
  /* Volume Controls */
 #define VOLCMD(arg) SHCMD("/bin/pulsemixer " arg "; pkill -RTMIN+10 dwmblocks")
 
@@ -130,13 +137,16 @@ static const char *torcmd[]  = { "torbrowser-launcher", NULL };
 static Key keys[] = {
 	/* modifier                key                  function        argument */
 
+    /* Toggle Keys */
+    TOGGLEKEYS
+
+    /* Screen Brightness Controls */
+    BRIGHTNESSKEYS
+
     /* Volume Controls */
     VOLADDKEY(                 XK_equal)
     VOLSUBKEY(                 XK_minus)
 	{ MODKEY,                  XK_m,                spawn,          VOLCMD("--toggle-mute") },
-
-    /* Screen Brightness Controls */
-    BRIGHTNESSKEYS
 
     /* Terminal Based Applications */
 	{ MODKEY,                  XK_n,                spawn,          TERMCMD("newsboat", "newsboat", "newsboat") },
