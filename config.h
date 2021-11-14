@@ -115,12 +115,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray, "-nf", col_gray, "-sb", col_purple_dark, "-sf", col_gray, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *nnncmd[]  = { "st", "-c", "nnn", "-t", "nnn", "-e", "nnn" };
 static const char *lockcmd[]  = { "lock", NULL };
-static const char *htopcmd[]  = { "st", "-c", "htop", "-t", "htop", "-e", "htop" };
-static const char *pulsecmd[]  = { "st", "-c", "pulsemixer", "-t", "pulsemixer", "-e", "pulsemixer" };
-static const char *mailcmd[]  = { "st", "-c", "mail", "-t", "mail", "-e", "neomutt" };
-static const char *newsboatcmd[]  = { "st", "-c", "newsboat", "-t", "newsboat", "-e", "newsboat" };
 static const char *powercmd[]  = { "scratchpad", "-c", "powermenu", "-t", "power", "-e", "powermenu" };
 static const char *homecmd[]  = { "scratchpad", "-c", "home", "-t", "home", "-e", "home" };
 static const char *passcmd[]  = { "scratchpad", "-c", "passmenu", "-t", "pass", "-e", "pass menu" };
@@ -143,21 +138,23 @@ static Key keys[] = {
     /* Screen Brightness Controls */
     BRIGHTNESSKEYS
 
+    /* Terminal Based Applications */
+	{ MODKEY,                  XK_n,                spawn,          TERMCMD("newsboat", "newsboat", "newsboat") },
+	{ MODKEY|SHIFT,            XK_Return,           spawn,          TERMCMD("nnn", "nnn", "nnn") },
+	{ MODKEY,                  XK_t,                spawn,          TERMCMD("htop", "htop", "htop") },
+	{ MODKEY|SHIFT,            XK_m,                spawn,          TERMCMD("netomutt", "mail", "netomutt") },
+	{ MODKEY,                  XK_p,                spawn,          TERMCMD("pulsemixer", "pulsemixer", "pulsemixer") },
+
 	{ MODKEY,                  XK_Return,           spawn,          {.v = termcmd } },
 	{ CTRL|ALT,                XK_Delete,           spawn,          {.v = powercmd } },
-	{ MODKEY|SHIFT,            XK_Return,           spawn,          {.v = nnncmd } },
 	{ MODKEY,                  XK_a,                spawn,          {.v = homecmd } },
 	{ MODKEY|SHIFT,            XK_a,                spawn,          {.v = appcmd } },
 	{ MODKEY,                  XK_c,                spawn,          {.v = clipcmd } },
 	{ MODKEY|SHIFT,            XK_c,                spawn,          {.v = calccmd } },
 	{ MODKEY,                  XK_x,                spawn,          {.v = lockcmd } },
 	{ MODKEY,                  XK_w,                spawn,          {.v = webcmd } },
-	{ MODKEY,                  XK_p,                spawn,          {.v = pulsecmd } },
 	{ MODKEY|SHIFT,            XK_p,                spawn,          {.v = passcmd } },
-	{ MODKEY|SHIFT,            XK_m,                spawn,          {.v = mailcmd } },
-	{ MODKEY,                  XK_n,                spawn,          {.v = newsboatcmd } },
 	{ MODKEY,                  XK_s,                spawn,          {.v = srcmd } },
-	{ MODKEY,                  XK_t,                spawn,          {.v = htopcmd } },
 	{ MODKEY|SHIFT,            XK_t,                togglebar,      {0} },
 	{ MODKEY,                  XK_Right,            focusstack,     {.i = +1 } },
 	{ MODKEY,                  XK_Left,             focusstack,     {.i = -1 } },
