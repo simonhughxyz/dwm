@@ -75,7 +75,7 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* helper to launch terminal based application */
-#define TERMCMD(class, title, cmd) { .v = (const char*[]){ "/usr/local/bin/st", "-c", class, "-t", title, "-e", cmd, NULL } }
+#define TERMCMD(class, title, cmd) SHCMD("/usr/local/bin/st -c " class " -t " title " -e " cmd)
 
 /* Tag Manipulation Controls */
 #define TAGKEYS(KEY,TAG) \
