@@ -138,6 +138,7 @@ typedef struct {
 	const char *title;
 	unsigned int tags;
 	int isfloating;
+	int issticky;
 	int monitor;
 } Rule;
 
@@ -289,6 +290,7 @@ applyrules(Client *c)
 	/* rule matching */
 	c->isfloating = 0;
 	c->tags = 0;
+	c->issticky = 0;
 	XGetClassHint(dpy, c->win, &ch);
 	class    = ch.res_class ? ch.res_class : broken;
 	instance = ch.res_name  ? ch.res_name  : broken;
@@ -301,6 +303,7 @@ applyrules(Client *c)
 		{
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
+			c->issticky = r->issticky;
 			for (m = mons; m && m->num != r->monitor; m = m->next);
 			if (m)
 				c->mon = m;
