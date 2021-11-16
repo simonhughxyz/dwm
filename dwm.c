@@ -93,7 +93,7 @@ struct Client {
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
 	int bw, oldbw;
 	unsigned int tags;
-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, issticky;
+	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, issticky, isscratchsticky;
 	char scratchkey;
 	Client *next;
 	Client *snext;
@@ -229,8 +229,8 @@ static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
-static void togglescratch(const Arg *arg);
 static void togglesticky(const Arg *arg);
+static void togglescratch(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -321,6 +321,7 @@ applyrules(Client *c)
 	c->isfloating = 0;
 	c->tags = 0;
 	c->issticky = 0;
+	c->isscratchsticky = 0;
 	c->scratchkey = 0;
 	XGetClassHint(dpy, c->win, &ch);
 	class    = ch.res_class ? ch.res_class : broken;
@@ -335,6 +336,7 @@ applyrules(Client *c)
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
 			c->issticky = r->issticky;
+            c->isscratchsticky = r->issticky;
 			c->scratchkey = r->scratchkey;
 			for (m = mons; m && m->num != r->monitor; m = m->next);
 			if (m)
@@ -1979,6 +1981,15 @@ togglefloating(const Arg *arg)
 }
 
 void
+togglesticky(const Arg *arg)
+{
+	if (!selmon->sel)
+		return;
+	selmon->sel->issticky = !selmon->sel->issticky;
+	arrange(selmon);
+}
+
+void
 togglescratch(const Arg *arg)
 {
 	Client *c;
@@ -1986,11 +1997,20 @@ togglescratch(const Arg *arg)
 
 	for (c = selmon->clients; c && !(found = c->scratchkey == ((char**)arg->v)[0][0]); c = c->next);
 	if (found) {
-		c->tags = ISVISIBLE(c) ? 0 : selmon->tagset[selmon->seltags];
+        if (c->issticky) {
+            c->issticky=0; /* don't have sticky when scratch is hidden */
+            c->tags = selmon->tagset[selmon->seltags];
+            if (ISVISIBLE(c)) {
+                c->tags = 0;
+            }
+        } else {
+            c->tags = ISVISIBLE(c) ? 0 : selmon->tagset[selmon->seltags];
+        }
 		focus(NULL);
 		arrange(selmon);
 
 		if (ISVISIBLE(c)) {
+            c->issticky=c->isscratchsticky;
 			focus(c);
 			restack(selmon);
 		}
@@ -1998,15 +2018,6 @@ togglescratch(const Arg *arg)
 	} else{
 		spawnscratch(arg);
 	}
-}
-
-void
-togglesticky(const Arg *arg)
-{
-	if (!selmon->sel)
-		return;
-	selmon->sel->issticky = !selmon->sel->issticky;
-	arrange(selmon);
 }
 
 void
