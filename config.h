@@ -197,6 +197,7 @@ static Key keys[] = {
 	{ MODKEY|SHIFT,            XK_Left,             setmfact,       {.f = -0.05} },
 	{ MODKEY|SHIFT,            XK_Right,            setmfact,       {.f = +0.05} },
 	{ MODKEY|SHIFT,            XK_space,            togglefloating, {0} },
+	{ MODKEY|SHIFT,            XK_s,                togglesticky,   {0} },
 	{ MODKEY|SHIFT,            XK_Up,               setcfact,       {.f = +0.25} },
 	{ MODKEY|SHIFT,            XK_Down,             setcfact,       {.f = -0.25} },
 	{ MODKEY|SHIFT,            XK_o,                setcfact,       {.f =  0.00} },
