@@ -1561,10 +1561,6 @@ resizeclient(Client *c, int x, int y, int w, int h)
 		}
 	}
 
-	if (c->isfloating && c->hasfloatbw && !c->isfullscreen)
-		wc.border_width = c->floatborderpx;
-	else
-		wc.border_width = c->bw;
 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
 	configure(c);
 	XSync(dpy, False);
