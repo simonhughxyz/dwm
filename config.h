@@ -40,7 +40,7 @@ static const Rule rules[] = {
 	{ "appmenu",       NULL,       NULL,       0,             1,           -1,        'a' },
 	{ "clipmenu",      NULL,       NULL,       0,             1,           -1,        'c' },
 	{ "srmenu",        NULL,       NULL,       0,             1,           -1,        's' },
-	{ "calc",          NULL,       NULL,       0,             1,           -1,        'c' },
+	{ "calc",          NULL,       NULL,       0,             1,           -1,        'C' },
 };
 
 /* layout(s) */
@@ -175,7 +175,7 @@ static Key keys[] = {
 	{ MODKEY|SHIFT,            XK_a,                togglescratch,  SCRATCHCMD("a", "appmenu", "apps", "appmenu") },
 	{ MODKEY,                  XK_c,                togglescratch,  SCRATCHCMD("c", "clipmenu", "clip", "clipmenu") },
 	{ MODKEY,                  XK_s,                togglescratch,  SCRATCHCMD("s", "srmenu", "search", "srmenu") }, 
-	{ MODKEY|SHIFT,            XK_c,                togglescratch,  SCRATCHCMD("c", "calc", "calc", "qalc") },
+	{ MODKEY|SHIFT,            XK_c,                togglescratch,  SCRATCHCMD("C", "calc", "calc", "qalc") },
 
 	{ MODKEY,                  XK_Return,           spawn,          {.v = termcmd } },
 	{ MODKEY,                  XK_x,                spawn,          {.v = lockcmd } },
