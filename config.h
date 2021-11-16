@@ -173,7 +173,7 @@ static Key keys[] = {
 	{ MODKEY|SHIFT,            XK_p,                togglescratch,  SCRATCHCMD("p", "passmenu", "pass", "pass menu") },
 	{ MODKEY,                  XK_a,                togglescratch,  SCRATCHCMD("h", "homemenu", "home", "home") },
 	{ MODKEY|SHIFT,            XK_a,                togglescratch,  SCRATCHCMD("a", "appmenu", "apps", "appmenu") },
-	{ MODKEY,                  XK_c,                togglescratch,  SCRATCHCMD("c", "clipmenu", "clip", "clipmenu") },
+	{ MODKEY,                  XK_c,                togglescratch,  SCRATCHCMD("c", "clipmenu", "clip", "fclip") },
 	{ MODKEY,                  XK_s,                togglescratch,  SCRATCHCMD("s", "srmenu", "search", "srmenu") }, 
 	{ MODKEY|SHIFT,            XK_c,                togglescratch,  SCRATCHCMD("C", "calc", "calc", "qalc") },
 
