@@ -146,6 +146,7 @@ typedef struct {
 	const char *title;
 	unsigned int tags;
 	int isfloating;
+	int issticky;
 	int monitor;
 	const char scratchkey;
 } Rule;
@@ -319,6 +320,7 @@ applyrules(Client *c)
 	/* rule matching */
 	c->isfloating = 0;
 	c->tags = 0;
+	c->issticky = 0;
 	c->scratchkey = 0;
 	XGetClassHint(dpy, c->win, &ch);
 	class    = ch.res_class ? ch.res_class : broken;
@@ -332,6 +334,7 @@ applyrules(Client *c)
 		{
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
+			c->issticky = r->issticky;
 			c->scratchkey = r->scratchkey;
 			for (m = mons; m && m->num != r->monitor; m = m->next);
 			if (m)
@@ -2003,6 +2006,7 @@ togglesticky(const Arg *arg)
 	if (!selmon->sel)
 		return;
 	selmon->sel->issticky = !selmon->sel->issticky;
+	arrange(selmon);
 }
 
 void
