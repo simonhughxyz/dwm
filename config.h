@@ -32,8 +32,15 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "mpv",      NULL,       NULL,       1 << 18,       0,           -1 },
+	/* class           instance    title       tags mask      isfloating   monitor    scratch key */
+	{ "mpv",           NULL,       NULL,       1 << 18,       0,           -1,        0   },
+	{ "powermenu",     NULL,       NULL,       0,             1,           -1,        'P' },
+	{ "passmenu",      NULL,       NULL,       0,             1,           -1,        'p' },
+	{ "homemenu",      NULL,       NULL,       0,             1,           -1,        'h' },
+	{ "appmenu",       NULL,       NULL,       0,             1,           -1,        'a' },
+	{ "clipmenu",      NULL,       NULL,       0,             1,           -1,        'c' },
+	{ "srmenu",        NULL,       NULL,       0,             1,           -1,        's' },
+	{ "calc",          NULL,       NULL,       0,             1,           -1,        'c' },
 };
 
 /* layout(s) */
@@ -161,16 +168,18 @@ static Key keys[] = {
 	{ MODKEY|SHIFT,            XK_m,                spawn,          TERMCMD("netomutt", "mail", "netomutt") },
 	{ MODKEY,                  XK_p,                spawn,          TERMCMD("pulsemixer", "pulsemixer", "pulsemixer") },
 
+    /* Scratchpads */
+	{ CTRL|ALT,                XK_Delete,           togglescratch,  SCRATCHCMD("P", "powermenu", "power", "powermenu") },
+	{ MODKEY|SHIFT,            XK_p,                togglescratch,  SCRATCHCMD("p", "passmenu", "pass", "pass menu") },
+	{ MODKEY,                  XK_a,                togglescratch,  SCRATCHCMD("h", "homemenu", "home", "home") },
+	{ MODKEY|SHIFT,            XK_a,                togglescratch,  SCRATCHCMD("a", "appmenu", "apps", "appmenu") },
+	{ MODKEY,                  XK_c,                togglescratch,  SCRATCHCMD("c", "clipmenu", "clip", "clipmenu") },
+	{ MODKEY,                  XK_s,                togglescratch,  SCRATCHCMD("s", "srmenu", "search", "srmenu") }, 
+	{ MODKEY|SHIFT,            XK_c,                togglescratch,  SCRATCHCMD("c", "calc", "calc", "qalc") },
+
 	{ MODKEY,                  XK_Return,           spawn,          {.v = termcmd } },
-	{ CTRL|ALT,                XK_Delete,           spawn,          {.v = powercmd } },
-	{ MODKEY,                  XK_a,                spawn,          {.v = homecmd } },
-	{ MODKEY|SHIFT,            XK_a,                spawn,          {.v = appcmd } },
-	{ MODKEY,                  XK_c,                spawn,          {.v = clipcmd } },
-	{ MODKEY|SHIFT,            XK_c,                spawn,          {.v = calccmd } },
 	{ MODKEY,                  XK_x,                spawn,          {.v = lockcmd } },
 	{ MODKEY,                  XK_w,                spawn,          {.v = webcmd } },
-	{ MODKEY|SHIFT,            XK_p,                spawn,          {.v = passcmd } },
-	{ MODKEY,                  XK_s,                spawn,          {.v = srcmd } },
 	{ MODKEY|SHIFT,            XK_t,                togglebar,      {0} },
 	{ MODKEY,                  XK_Right,            focusstack,     {.i = +1 } },
 	{ MODKEY,                  XK_Left,             focusstack,     {.i = -1 } },
