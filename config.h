@@ -71,11 +71,17 @@ static const Layout layouts[] = {
 #define CTRL ControlMask
 #define SHIFT ShiftMask
 
+/* default terminal */
+#define TERMINAL "/usr/local/bin/st"
+
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* helper to launch terminal based application */
-#define TERMCMD(class, title, cmd) SHCMD("/usr/local/bin/st -c " class " -t " title " -e " cmd)
+#define TERMCMD(class, title, cmd) SHCMD(TERMINAL " -c " class " -t " title " -e " cmd)
+
+/* helper to launch scratchpad applications */
+#define SCRATCHCMD(skey, class, title, cmd) { .v = (const char*[]){skey, "/bin/sh", "-c", TERMINAL " -c " class " -t " title " -e " cmd, NULL} }
 
 /* Tag Manipulation Controls */
 #define TAGKEYS(KEY,TAG) \
