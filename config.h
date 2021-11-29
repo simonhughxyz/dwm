@@ -173,7 +173,7 @@ static Key keys[] = {
 	{ MODKEY,                  XK_Return,           spawn,          {.v = termcmd } },
 	{ MODKEY,                  XK_x,                spawn,          {.v = lockcmd } },
 	{ MODKEY,                  XK_w,                spawn,          {.v = webcmd } },
-	{ MODKEY|SHIFT,            XK_t,                togglebar,      {0} },
+	{ MODKEY|SHIFT,            XK_b,                togglebar,      {0} },
 	{ MODKEY,                  XK_Right,            focusstack,     {.i = +1 } },
 	{ MODKEY,                  XK_Left,             focusstack,     {.i = -1 } },
 	{ MODKEY,                  XK_i,                incnmaster,     {.i = +1 } },
