@@ -157,7 +157,8 @@ static Key keys[] = {
     /* Terminal Based Applications */
 	{ MODKEY,                  XK_n,                spawn,          TERMCMD("newsboat", "newsboat", "newsboat") },
 	{ MODKEY|SHIFT,            XK_Return,           spawn,          TERMCMD("nnn", "nnn", "nnn") },
-	{ MODKEY,                  XK_t,                spawn,          TERMCMD("htop", "htop", "htop") },
+	{ MODKEY,                  XK_t,                spawn,          TERMCMD("bottom", "bottom", "btm -b") },
+	{ MODKEY|SHIFT,            XK_t,                spawn,          TERMCMD("bottom", "bottom", "btm") },
 	{ MODKEY|SHIFT,            XK_m,                spawn,          TERMCMD("netomutt", "mail", "netomutt") },
 	{ MODKEY,                  XK_p,                spawn,          TERMCMD("pulsemixer", "pulsemixer", "pulsemixer") },
 
