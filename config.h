@@ -32,15 +32,15 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class           instance    title       tags mask      isfloating    issticky   monitor    scratch key */
-	{ "mpv",           NULL,       NULL,       1 << 18,       0,            0,         -1,        0   },
-	{ "powermenu",     NULL,       NULL,       0,             1,            1,         -1,        'P' },
-	{ "passmenu",      NULL,       NULL,       0,             1,            0,         -1,        'p' },
-	{ "homemenu",      NULL,       NULL,       0,             1,            0,         -1,        'h' },
-	{ "appmenu",       NULL,       NULL,       0,             1,            0,         -1,        'a' },
-	{ "clipmenu",      NULL,       NULL,       0,             1,            0,         -1,        'c' },
-	{ "srmenu",        NULL,       NULL,       0,             1,            1,         -1,        's' },
-	{ "calc",          NULL,       NULL,       0,             1,            0,         -1,        'C' },
+	/* class       instance  title  tags mask  iscentered  isfloating  issticky  monitor  scratch key  float x,y,w,h floatborderpx */
+	{ "mpv",       NULL,     NULL,  1 << 18,   1,          0,          0,        -1,       0,          50,50,800,500, 4 },
+	{ "powermenu", NULL,     NULL,  0,         1,          1,          1,        -1,      'P',         50,50,500,300, 4 },
+	{ "passmenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'p',         50,50,800,400, 4 },
+	{ "homemenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'h',         50,50,800,400, 4 },
+	{ "appmenu",   NULL,     NULL,  0,         1,          1,          0,        -1,      'a',         50,50,800,400, 4 },
+	{ "clipmenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'c',         50,50,800,400, 4 },
+	{ "srmenu",    NULL,     NULL,  0,         0,          1,          1,        -1,      's',         0,0,1910,200,  4 },
+	{ "calc",      NULL,     NULL,  0,         1,          1,          0,        -1,      'C',         50,50,800,400, 4 },
 };
 
 /* layout(s) */
