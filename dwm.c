@@ -56,6 +56,13 @@
 #define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
 #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
 #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
+#define CENTER(C)   C->x = C->mon->mx + (C->mon->mw - WIDTH(C)) / 2; \
+                    C->y = C->mon->my + (C->mon->mh - HEIGHT(C)) / 2
+
+#define FLOATRULE(C)   if (C->floatx >= 0) C->x = C->mon->mx + C->floatx; \
+                            if (C->floaty >= 0) C->y = C->mon->my + C->floaty; \
+                            if (C->floatw >= 0) C->w = C->floatw; \
+                            if (C->floath >= 0) C->h = C->floath
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
@@ -90,6 +97,7 @@ struct Client {
 	float cfact;
 	int x, y, w, h;
 	int oldx, oldy, oldw, oldh;
+	int floatx, floaty, floatw, floath;
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
 	int bw, oldbw;
 	unsigned int tags;
@@ -329,6 +337,10 @@ applyrules(Client *c)
 	c->issticky = 0;
 	c->isscratchsticky = 0;
 	c->scratchkey = 0;
+    c->floatx = -1;
+    c->floaty = -1;
+    c->floatw = -1;
+    c->floath = -1;
 	XGetClassHint(dpy, c->win, &ch);
 	class    = ch.res_class ? ch.res_class : broken;
 	instance = ch.res_name  ? ch.res_name  : broken;
@@ -345,17 +357,16 @@ applyrules(Client *c)
 			c->issticky = r->issticky;
             c->isscratchsticky = r->issticky;
 			c->scratchkey = r->scratchkey;
+            c->floatx = r->floatx;
+            c->floaty = r->floaty;
+            c->floatw = r->floatw;
+            c->floath = r->floath;
 
 			if (r->floatborderpx >= 0) {
 				c->floatborderpx = r->floatborderpx;
 				c->hasfloatbw = 1;
 			}
-			if (r->isfloating) {
-				if (r->floatx >= 0) c->x = c->mon->mx + r->floatx;
-				if (r->floaty >= 0) c->y = c->mon->my + r->floaty;
-				if (r->floatw >= 0) c->w = r->floatw;
-				if (r->floath >= 0) c->h = r->floath;
-			}
+
 			for (m = mons; m && m->num != r->monitor; m = m->next);
 			if (m)
 				c->mon = m;
@@ -1235,6 +1246,7 @@ manage(Window w, XWindowAttributes *wa)
 	} else {
 		c->mon = selmon;
 		applyrules(c);
+        FLOATRULE(c);
 	}
 
 	if (c->x + WIDTH(c) > c->mon->mx + c->mon->mw)
@@ -1254,10 +1266,9 @@ manage(Window w, XWindowAttributes *wa)
 	updatewindowtype(c);
 	updatesizehints(c);
 	updatewmhints(c);
-	if (c->iscentered) {
-		c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
-		c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
-	}
+	if (c->iscentered){
+        CENTER(c);
+    }
 	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
 	grabbuttons(c, 0);
 	if (!c->isfloating)
@@ -1998,9 +2009,16 @@ togglefloating(const Arg *arg)
 	if (selmon->sel->isfullscreen) /* no support for fullscreen windows */
 		return;
 	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
-	if (selmon->sel->isfloating)
+	if (selmon->sel->isfloating){
+        FLOATRULE(selmon->sel);
+
 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
-			selmon->sel->w, selmon->sel->h, 0);
+        selmon->sel->w, selmon->sel->h, 0);
+
+        if (selmon->sel->iscentered){
+            CENTER(selmon->sel);
+        }
+    }
 	arrange(selmon);
 }
 
