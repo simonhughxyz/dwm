@@ -361,6 +361,7 @@ applyrules(Client *c)
             c->floaty = r->floaty;
             c->floatw = r->floatw;
             c->floath = r->floath;
+            FLOATRULE(c);
 
 			if (r->floatborderpx >= 0) {
 				c->floatborderpx = r->floatborderpx;
@@ -1246,7 +1247,6 @@ manage(Window w, XWindowAttributes *wa)
 	} else {
 		c->mon = selmon;
 		applyrules(c);
-        FLOATRULE(c);
 	}
 
 	if (c->x + WIDTH(c) > c->mon->mx + c->mon->mw)
