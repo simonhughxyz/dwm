@@ -33,14 +33,14 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class       instance  title  tags mask  iscentered  isfloating  issticky  monitor  scratch key  float x,y,w,h floatborderpx */
-	{ "mpv",       NULL,     NULL,  1 << 18,   1,          0,          0,        -1,       0,          50,50,800,500, 4 },
-	{ "powermenu", NULL,     NULL,  0,         1,          1,          1,        -1,      'P',         50,50,500,300, 4 },
-	{ "passmenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'p',         50,50,800,400, 4 },
-	{ "homemenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'h',         50,50,800,400, 4 },
-	{ "appmenu",   NULL,     NULL,  0,         1,          1,          0,        -1,      'a',         50,50,800,400, 4 },
-	{ "clipmenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'c',         50,50,800,400, 4 },
-	{ "srmenu",    NULL,     NULL,  0,         0,          1,          1,        -1,      's',         0,0,1910,200,  4 },
-	{ "calc",      NULL,     NULL,  0,         1,          1,          0,        -1,      'C',         50,50,800,400, 4 },
+	{ "mpv",       NULL,     NULL,  1 << 18,   1,          0,          0,        -1,       0,          -1,-1,1000,500, -1 },
+	{ "powermenu", NULL,     NULL,  0,         1,          1,          1,        -1,      'P',         -1,-1,500,300, -1 },
+	{ "passmenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'p',         -1,-1,800,400, -1 },
+	{ "homemenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'h',         -1,-1,800,400, -1 },
+	{ "appmenu",   NULL,     NULL,  0,         1,          1,          0,        -1,      'a',         -1,-1,800,400, -1 },
+	{ "clipmenu",  NULL,     NULL,  0,         1,          1,          0,        -1,      'c',         -1,-1,800,400, -1 },
+	{ "srmenu",    NULL,     NULL,  0,         0,          1,          1,        -1,      's',         -1,-1,1910,200, 1 },
+	{ "calc",      NULL,     NULL,  0,         1,          1,          0,        -1,      'C',         -1,-1,800,400, -1 },
 };
 
 /* layout(s) */
